@@ -1,8 +1,9 @@
-import frida,sys
+import frida, sys
 import json
 
-
 '''Enumeration process list'''
+
+
 def enmuProcess():
     processes = frida.get_usb_device().enumerate_processes()
     pid_column_width = max(map(lambda p: len("%d" % p.pid), processes))
@@ -13,6 +14,8 @@ def enmuProcess():
         # process = line_format % (process.pid, process.name)
     list = json.dumps(list)
     return list
+
+
 def compare_processes(a, b):
     a_has_icon = a.get_small_icon() is not None
     b_has_icon = b.get_small_icon() is not None
@@ -27,6 +30,7 @@ def compare_processes(a, b):
         return -1
     else:
         return 1
+
 
 def cmp_to_key(mycmp):
     "Convert a cmp= function into a key= function"
@@ -55,13 +59,17 @@ def cmp_to_key(mycmp):
 
     return K
 
+
 '''Hook function example'''
+
+
 def crack(processName):
     def on_message(message, data):
         if message['type'] == 'send':
             print("[*] {0}".format(message['payload']))
         else:
             print(message)
+
     jscode = """
     Java.perform(function () {
         // Function to hook is defined here
