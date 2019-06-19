@@ -8,5 +8,4 @@ from server.utils.deviceUtils import DeviceUtil
 
 device_util = DeviceUtil()
 device_util.setup_device("18b5d40e")
-for item in device_util.enumerate_process():
-    print(type(item))
+print(device_util.processes_to_json_str())
